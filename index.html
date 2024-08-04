@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kan Zaman BBQ Restaurant - 100% Halal</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #D4AF37;
+            --secondary-color: #2C3E50;
+            --text-color: #333;
+            --bg-color: #F5F5F5;
+            --menu-bg: rgba(255, 255, 255, 0.7);
+            --menu-border: #D4AF37;
+            --card-bg: #FFFFFF;
+            --footer-bg: #2C3E50;
+            --footer-text: #FFFFFF;
+        }
+
+        .dark-mode {
+            --primary-color: #FFD700;
+            --secondary-color: #34495E;
+            --text-color: #E0E0E0;
+            --bg-color: #121212;
+            --menu-bg: rgba(0, 0, 0, 0.7);
+            --menu-border: #FFD700;
+            --card-bg: #1E1E1E;
+            --footer-bg: #0A0A0A;
+            --footer-text: #E0E0E0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+        }
+        
+        .hero {
+            background-image: url('images/hero-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .menu-item {
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--menu-border);
+            color: var(--text-color);
+            padding: 1.5rem;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .menu-item h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu-item li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item .price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Dark mode specific styles */
+        .dark-mode .menu-item {
+            background-color: var(--card-bg);
+            border-color: var(--primary-color);
+        }
+
+        .dark-mode .menu-item h3 {
+            color: var(--primary-color);
+        }
+
+        .dark-mode .menu-item li {
+            color: var(--text-color);
+        }
+
+        .dark-mode .menu-item .price {
+            color: var(--primary-color);
+        }
+
+        .dark-mode .menu-item {
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .menu-item:hover {
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: var(--secondary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .shadow-text {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        #navbar {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            background-color: var(--menu-bg);
+        }
+
+        #navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .language-toggle, .mode-toggle {
+            position: fixed;
+            z-index: 1000;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover, .mode-toggle:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        .language-toggle {
+            top: 20px;
+            right: 70px;
+        }
+
+        .mode-toggle {
+            top: 20px;
+            right: 20px;
+        }
+
+        /* Enhanced styles for dark mode */
+        .dark-mode #navbar {
+            background-color: rgba(18, 18, 18, 0.9);
+        }
+
+        .dark-mode .menu-item {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .btn-primary {
+            color: #121212;
+        }
+
+        .dark-mode .btn-primary:hover {
+            color: #F5F5F5;
+        }
+
+        .dark-mode #about, .dark-mode #contact {
+            background-color: #1A1A1A;
+        }
+
+        .dark-mode #menu {
+            background-color: #121212;
+        }
+
+        .dark-mode footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+        }
+
+        /* Improved text contrast for dark mode */
+        .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+            color: var(--primary-color);
+        }
+
+        .dark-mode p, .dark-mode li, .dark-mode span {
+            color: var(--text-color);
+        }
+
+        .dark-mode .hero h2, .dark-mode .hero p {
+            color: #FFFFFF;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .dark-mode .menu-item h3, .dark-mode .menu-item p, .dark-mode .menu-item li {
+            color: var(--text-color);
+        }
+
+        .dark-mode footer a {
+            color: var(--primary-color);
+        }
+
+        .dark-mode footer a:hover {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 transition-colors duration-300">
+    <header class="fixed w-full bg-black bg-opacity-70 text-white z-50 transition-all duration-300 ease-in-out" id="navbar">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/logo.png" alt="Kan Zaman Logo" class="w-12 h-12 mr-3 rounded-full">
+                <h1 class="text-3xl font-bold">Kan Zaman <span class="text-primary">BBQ</span></h1>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#home" class="nav-link" data-en="Home" data-nl="Thuis">Thuis</a></li>
+                    <li><a href="#about" class="nav-link" data-en="About" data-nl="Over ons">Over ons</a></li>
+                    <li><a href="#menu" class="nav-link" data-en="Menu" data-nl="Menu">Menu</a></li>
+                    <li><a href="#contact" class="nav-link" data-en="Contact" data-nl="Contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-2xl" id="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="md:hidden hidden bg-black bg-opacity-90" id="mobile-menu">
+            <ul class="flex flex-col items-center py-4">
+                <li><a href="#home" class="block py-2 nav-link" data-en="Home" data-nl="Thuis">Thuis</a></li>
+                <li><a href="#about" class="block py-2 nav-link" data-en="About" data-nl="Over ons">Over ons</a></li>
+                <li><a href="#menu" class="block py-2 nav-link" data-en="Menu" data-nl="Menu">Menu</a></li>
+                <li><a href="#contact" class="block py-2 nav-link" data-en="Contact" data-nl="Contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <button id="language-toggle" class="language-toggle">
+        NL
+    </button>
+
+    <button id="mode-toggle" class="mode-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <section id="home" class="hero min-h-screen flex items-center">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-5xl md:text-7xl font-bold mb-4 text-white shadow-text animate-fade-in" data-en="Welcome to Kan Zaman" data-nl="Welkom bij Kan Zaman">Welkom bij Kan Zaman</h2>
+            <p class="text-2xl md:text-3xl mb-8 text-white shadow-text animate-fade-in" data-en="Experience the finest 100% Halal BBQ in Rotterdam" data-nl="Ervaar de beste 100% Halal BBQ in Rotterdam">Ervaar de beste 100% Halal BBQ in Rotterdam</p>
+            <a href="#menu" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold transition duration-300 transform hover:scale-105 animate-bounce" data-en="Explore Our Menu" data-nl="Ontdek Ons Menu">Ontdek Ons Menu</a>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center" data-en="Our Story" data-nl="Ons Verhaal">Our Story</h2>
+            <div class="flex flex-wrap items-center">
+                <div class="w-full lg:w-1/2 mb-8 lg:mb-0">
+                    <img src="images/about-us.jpg" alt="Restaurant Interior" class="rounded-lg shadow-2xl transform hover:scale-105 transition duration-300 animate-fade-in">
+                </div>
+                <div class="w-full lg:w-1/2 lg:pl-12 about-text">
+                    <p class="text-xl mb-6 leading-relaxed animate-slide-in" data-en="Kan Zaman is more than just a BBQ restaurant; it's a culinary journey that brings the authentic flavors of Halal cuisine to the heart of Rotterdam. Our passion for great food and warm hospitality has made us a beloved local favorite." data-nl="Kan Zaman is meer dan alleen een BBQ-restaurant; het is een culinaire reis die de authentieke smaken van de Halal-keuken naar het hart van Rotterdam brengt. Onze passie voor goed eten en warme gastvrijheid heeft ons een geliefde lokale favoriet gemaakt.">Kan Zaman is more than just a BBQ restaurant; it's a culinary journey that brings the authentic flavors of Halal cuisine to the heart of Rotterdam. Our passion for great food and warm hospitality has made us a beloved local favorite.</p>
+                    <p class="text-xl mb-6 leading-relaxed animate-slide-in" data-en="We take pride in using only the finest 100% Halal ingredients, expertly prepared to create mouthwatering dishes that satisfy both your appetite and your soul." data-nl="We zijn trots op het gebruik van alleen de beste 100% Halal-ingrediënten, vakkundig bereid om heerlijke gerechten te creëren die zowel uw eetlust als uw ziel bevredigen.">We take pride in using only the finest 100% Halal ingredients, expertly prepared to create mouthwatering dishes that satisfy both your appetite and your soul.</p>
+                    <p class="text-xl font-semibold animate-slide-in" data-en="Come and experience the Kan Zaman difference!" data-nl="Kom en ervaar het Kan Zaman-verschil!">Come and experience the Kan Zaman difference!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center" data-en="Our Mouthwatering Menu" data-nl="Ons Verrukkelijke Menu">Our Mouthwatering Menu</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6 menu-item animate-fade-in">
+                    <img src="images/menu-items/harira-soup.jpg" alt="Harira Soup" class="w-full h-48 object-cover rounded-t-lg mb-4">
+                    <h3 class="text-2xl font-semibold mb-4" data-en="Soups" data-nl="Soepen">Soups</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center">
+                            <span data-en="Harira soup" data-nl="Harira soep">Harira soup</span>
+                            <span class="font-bold text-primary">€ 5,00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 menu-item animate-fade-in">
+                    <img src="images/menu-items/kefta-sandwich.jpg" alt="Kefta Sandwich" class="w-full h-48 object-cover rounded-t-lg mb-4">
+                    <h3 class="text-2xl font-semibold mb-4" data-en="Sandwiches" data-nl="Broodjes">Sandwiches</h3>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center">
+                            <span data-en="Kefta sandwich" data-nl="Broodje kefta">Kefta sandwich</span>
+                            <span class="font-bold text-primary">€ 8,00</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span data-en="Merguez sandwich" data-nl="Broodje merguez">Merguez sandwich</span>
+                            <span class="font-bold text-primary">€ 8,00</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span data-en="Chicken fillet sandwich" data-nl="Broodje kipfilet">Chicken fillet sandwich</span>
+                            <span class="font-bold text-primary">€ 8,00</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6 menu-item animate-fade-in">
+                    <img src="images/menu-items/chicken-platter.jpg" alt="Chicken Platter" class="w-full h-48 object-cover rounded-t-lg mb-4">
+                    <h3 class="text-2xl font-semibold mb-4" data-en="Platters" data-nl="Schotels">Platters</h3>
+                    <p class="text-sm italic mb-2" data-en="With salad and fries or rice" data-nl="Met salade en friet of rijst">With salad and fries or rice</p>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center">
+                            <span data-en="Chicken fillet platter" data-nl="Schotel kipfilet">Chicken fillet platter</span>
+                            <span class="font-bold text-primary">€ 16,00</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span data-en="Mixed grill platter" data-nl="Schotel mixed grill">Mixed grill platter</span>
+                            <span class="font-bold text-primary">€ 18,00</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span data-en="Spareribs platter" data-nl="Schotel spareribs">Spareribs platter</span>
+                            <span class="font-bold text-primary">€ 20,00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-12 text-center" data-en="Contact Us" data-nl="Neem Contact Op">Contact Us</h2>
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
+                    <h3 class="text-2xl font-semibold mb-4" data-en="Location" data-nl="Locatie">Location</h3>
+                    <p class="mb-2" data-en="Schiedamseweg 25A" data-nl="Schiedamseweg 25A">Schiedamseweg 25A</p>
+                    <p class="mb-2" data-en="Rotterdam" data-nl="Rotterdam">Rotterdam</p>
+                    <p class="mb-4" data-en="3026 AB" data-nl="3026 AB">3026 AB</p>
+                    <h3 class="text-2xl font-semibold mb-4" data-en="Hours" data-nl="Openingstijden">Hours</h3>
+                    <p class="mb-2" data-en="Monday - Friday: 11:00 AM - 10:00 PM" data-nl="Maandag - Vrijdag: 11:00 - 22:00">Monday - Friday: 11:00 AM - 10:00 PM</p>
+                    <p class="mb-2" data-en="Saturday - Sunday: 12:00 PM - 11:00 PM" data-nl="Zaterdag - Zondag: 12:00 - 23:00">Saturday - Sunday: 12:00 PM - 11:00 PM</p>
+                    
+                </div>
+                <div style="float:right;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2465.653129231152!2d4.464041715882122!3d51.909985979698875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c4349cb2cc87c3%3A0x5c24204e9f70b31a!2sSchiedamseweg+25A%2C+3026+AB+Rotterdam%2C+Netherlands!5e0!3m2!1sen!2sus!4v1568717834787!5m2!1sen!2sus" width="750" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                  </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                    <img src="images/logo.png" alt="Kan Zaman Logo" class="w-16 h-16 mb-2">
+                    <p data-en="100% Halal BBQ Restaurant" data-nl="100% Halal BBQ Restaurant">100% Halal BBQ Restaurant</p>
+                </div>
+                <div class="w-full md:w-1/3 mb-4 md:mb-0">
+                    <h4 class="text-lg font-semibold mb-2" data-en="Quick Links" data-nl="Snelle Links">Snelle Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-primary transition duration-300" data-en="Home" data-nl="Thuis">Thuis</a></li>
+                        <li><a href="#about" class="hover:text-primary transition duration-300" data-en="About" data-nl="Over ons">Over ons</a></li>
+                        <li><a href="#menu" class="hover:text-primary transition duration-300" data-en="Menu" data-nl="Menu">Menu</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition duration-300" data-en="Contact" data-nl="Contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/3">
+                    <h4 class="text-lg font-semibold mb-2" data-en="Follow Us" data-nl="Volg Ons">Volg Ons</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/p/Kan-Zaman-BBQ-100069846829491/" target="_blank" rel="noopener noreferrer" class="social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.thuisbezorgd.nl/menu/kan-zaman-new" target="_blank" rel="noopener noreferrer" class="social-icon" title="Thuisbezorgd">
+                            <i class="fas fa-shopping-bag"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>&copy; 2024 Kan Zaman BBQ Restaurant. <span data-en="All rights reserved." data-nl="Alle rechten voorbehouden.">Alle rechten voorbehouden.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dark mode toggle
+        const modeToggleBtn = document.getElementById('mode-toggle');
+        const body = document.body;
+
+        modeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = modeToggleBtn.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+
+        // Language toggle
+        const languageToggle = document.getElementById('language-toggle');
+        const elementsToTranslate = document.querySelectorAll('[data-en]');
+        let currentLang = 'nl';
+
+        languageToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'nl' ? 'en' : 'nl';
+            languageToggle.textContent = currentLang.toUpperCase();
+            elementsToTranslate.forEach(el => {
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = el.dataset[currentLang];
+                } else {
+                    el.textContent = el.dataset[currentLang];
+                }
+            });
+        });
+
+        // Navbar hide/show on scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+        });
+
+    </script>
+</body>
+</html>
